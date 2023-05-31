@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Stock } from '../models/stock';
+import { Observable, map, of, tap } from 'rxjs';
+import { Stock, stocks } from '../models/stock';
 
 
 @Injectable({
@@ -16,7 +16,9 @@ export class StockService {
     }
 
     public findAll(): Observable<Stock[]> {
-        return this.http.get<Stock[]>(this.stockUrl);
+        return this.http.get<stocks>(this.stockUrl).pipe(
+            map(s => s.stocks)
+        );
     }
 
     public save(stock: Stock) {

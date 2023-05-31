@@ -1,4 +1,8 @@
-export class Stock {
-    symbol?: string;
-    price: number = 0;
+export interface stocks {
+    stocks: Stock[]
+}
+
+export interface Stock {
+    symbol: string;
+    price: number;
 }

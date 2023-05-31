@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from '../services/stock.service';
 import { Stock } from '../models/stock';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -9,14 +10,13 @@ import { Stock } from '../models/stock';
 })
 export class ListComponent implements OnInit {
 
-  stocks?: Stock[]
+  stocks$!: Observable<Stock[]>;
 
   constructor(private stockService: StockService) {
   }
   ngOnInit() {
-    this.stockService.findAll().subscribe(data => {
-      this.stocks = data;
-      console.log(this.stocks);
-    });
+    this.stocks$ = this.stockService.findAll();
+
+    this.stockService.findAll().subscribe(result => console.log(result));
   }
 }
