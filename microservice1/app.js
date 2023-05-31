@@ -8,8 +8,12 @@ app.use(cors());
 
 const port = process.env.PORT || 3000;
 
-app.get('/v1/healthcheck', function (req, res) {
-  res.json({message: 'I am healthy Microservice'});
+app.get('/v1/stocks', function (req, res) {
+  const stocks = [
+    { symbol: 'AAPL', price: 100 },
+    { symbol: 'CAT', price: 250 }
+  ]
+  res.json(stocks);
 });
 
 app.use('*', function (req, res) {

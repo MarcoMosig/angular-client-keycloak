@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +8,17 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   constructor(
-    private readonly keycloak: KeycloakService,
-    public router: Router) { }
+    private authService: AuthService,) { }
 
-  public hasAdminRole: boolean = false;
+
 
   ngOnInit(): void {
-    this.hasAdminRole = this.keycloak.getUserRoles().includes('admin');
   }
 
-  public async logout() {
-    this.keycloak.logout();
+  login() {
+    this.authService.login();
+  }
+  logout() {
+    this.authService.logout();
   }
 }

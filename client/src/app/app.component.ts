@@ -1,28 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { KeycloakProfile } from 'keycloak-js';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title(title: any) {
+export class AppComponent {
+  isAuthenticated$: Observable<boolean>;
+  isDoneLoading$: Observable<boolean>;
+  canActivateProtectedRoutes$: Observable<boolean>;
+
+  constructor(
+    private authService: AuthService,
+  ) {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
+    this.isDoneLoading$ = this.authService.isDoneLoading$;
+    this.canActivateProtectedRoutes$ = this.authService.canActivateProtectedRoutes$;
   }
 
-  public isLogged = false;
-  public profile: KeycloakProfile | null = null;
+  login() { this.authService.login(); }
+  logout() { this.authService.logout(); }
+  refresh() { this.authService.refresh(); }
+  reload() { window.location.reload(); }
+  clearStorage() { localStorage.clear(); }
 
-  constructor(private readonly keycloak: KeycloakService) { }
-
-  public userName = "";
-  async ngOnInit() {
-    this.isLogged = await this.keycloak.isLoggedIn();
-
-    if (this.isLogged) {
-      this.profile = await this.keycloak.loadUserProfile();
-      this.userName += this.profile.username;
-    }
+  logoutExternally() {
+    window.open(this.authService.logoutUrl);
   }
+
+  get hasValidToken() { return this.authService.hasValidToken(); }
+  get accessToken() { return this.authService.accessToken; }
+  get refreshToken() { return this.authService.refreshToken; }
+  get identityClaims() { return this.authService.identityClaims; }
+  get idToken() { return this.authService.idToken; }
+
 }

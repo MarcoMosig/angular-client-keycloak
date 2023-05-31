@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function authAppInitializerFactory(authService) {\n  return () => authService.runInitialLoginSequence();\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
