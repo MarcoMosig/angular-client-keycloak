@@ -3,10 +3,10 @@ import { APP_INITIALIZER, ModuleWithProviders, NgModule, Optional, SkipSelf } fr
 import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angular-oauth2-oidc';
 import { authAppInitializerFactory } from './auth-app-initializer.factory';
 import { authConfig } from './auth-config';
-import { AuthGuardWithForcedLogin } from './auth-guard-with-forced-login.service';
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuardWithForcedLogin } from './guards/auth-guard-with-forced-login.service';
+import { AuthGuard } from './guards/auth-guard.service';
 import { authModuleConfig } from './auth-module-config';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 
 export function storageFactory(): OAuthStorage {

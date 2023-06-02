@@ -5,8 +5,20 @@ import { ShouldLoginComponent } from './should-login.component';
 
 
 const routes: Routes = [
-    { path: 'home', component: AppComponent },
-    { path: 'stocks', loadChildren: () => import('./stocks/stocks.module').then(m => m.StocksModule) },
+    {
+        path: '',
+        loadChildren: () => import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
+    },
+    {
+        path: 'home',
+        redirectTo: '',
+        pathMatch: 'full',
+    },
+    {
+        path: 'stocks',
+        loadChildren: () =>
+            import('./features/stocks/stocks.module').then((m) => m.StocksModule),
+    },
     { path: 'should-login', component: ShouldLoginComponent },
 ];
 

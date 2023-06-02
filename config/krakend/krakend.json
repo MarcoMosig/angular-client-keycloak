@@ -36,6 +36,7 @@
   "endpoints": [
     {
       "endpoint": "/v1/stocks/list",
+      "method": "GET",
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
@@ -43,7 +44,6 @@
           "disable_jwk_security": true
         }
       },
-      "method": "GET",
       "backend": [
         {
           "url_pattern": "/v1/stocks",

@@ -10,8 +10,9 @@ services:
     command: start-dev
 
   krakend:
-    image: devopsfaith/krakend:2.2
+    image: devopsfaith/krakend:watch
     container_name: gateway
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
     ports:
       - "8081:8080"
     expose:

@@ -3,13 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NavbarComponent } from './component/navbar/navbar.component';
 import { ShouldLoginComponent } from './should-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     ShouldLoginComponent
   ],
   imports: [
