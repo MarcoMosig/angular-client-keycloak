@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-layout-admin',
+  selector: 'layout',
   templateUrl: './layout-admin.component.html',
-  styleUrls: ['./layout-admin.component.css']
+  styleUrls: ['./layout-admin.component.scss']
 })
 export class LayoutAdminComponent {
 
+  isScreenSmall: boolean = false;
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
 }

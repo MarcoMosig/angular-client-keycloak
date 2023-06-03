@@ -4,7 +4,7 @@ import { Stock } from '../../interfaces/stock';
 @Component({
   selector: 'app-stock-card',
   templateUrl: './stock-card.component.html',
-  styleUrls: ['./stock-card.component.css'],
+  styleUrls: ['./stock-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockCardComponent {

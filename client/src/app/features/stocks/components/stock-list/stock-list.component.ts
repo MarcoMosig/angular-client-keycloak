@@ -6,7 +6,7 @@ import { Stock, StockResponse } from '@features/stocks/interfaces/stock';
 @Component({
   selector: 'app-stock-list',
   templateUrl: './stock-list.component.html',
-  styleUrls: ['./stock-list.component.css'],
+  styleUrls: ['./stock-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockListComponent implements OnInit {
