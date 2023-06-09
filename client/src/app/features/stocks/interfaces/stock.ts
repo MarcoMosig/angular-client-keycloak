@@ -1,14 +1,32 @@
 
 export interface StockResponse {
-    message: Stock[]
+    stocks: Stock[]
 }
 
 export interface Stock {
+    company: string;
+    wkn: string;
+    isin: string;
     symbol: string;
+    sector: string;
+    DIVe: string;
+    KGVe: number;
+    country: string;
+    market_cap: number;
+    currency: string;
     price: number;
 }
 
 export interface StockDto {
-    symbol: string
-    price: number
+    company: string;
+    wkn: string;
+    isin: string;
+    symbol: string;
+    sector: string;
+    DIVe: string;
+    KGVe: number;
+    country: string;
+    market_cap: number;
+    currency: string;
+    price: number;
 }

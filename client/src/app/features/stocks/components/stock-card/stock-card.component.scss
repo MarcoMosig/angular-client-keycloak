@@ -1,0 +1,6 @@
+finvest-card {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    @apply rounded-2xl shadow bg-card;
+}

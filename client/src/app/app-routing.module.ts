@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AppComponent} from './app.component';
-import {ShouldLoginComponent} from './should-login.component';
-import {LayoutMainComponent} from '@features/layouts/layout-main/layout-main.component';
-import {AuthGuard} from '@core/guards/auth-guard.service';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { ShouldLoginComponent } from './should-login.component';
+import { LayoutMainComponent } from '@features/layouts/layout-main/layout-main.component';
+import { AuthGuard } from '@core/guards/auth-guard.service';
 
 
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
       }
     ]
   },
-  {path: 'should-login', component: ShouldLoginComponent},
+  { path: 'should-login', component: ShouldLoginComponent },
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { StockService } from '../../services/stock.service';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map, BehaviorSubject } from 'rxjs';
 import { Stock, StockResponse } from '@features/stocks/interfaces/stock';
 
 @Component({
@@ -11,13 +11,13 @@ import { Stock, StockResponse } from '@features/stocks/interfaces/stock';
 })
 export class StockListComponent implements OnInit {
 
-  stocks$: Observable<Stock[]> = of();
+  stocks$!: Observable<Stock[]>;
 
   constructor(private stockService: StockService) {
 
   }
 
   ngOnInit(): void {
-    this.stocks$ = this.stockService.getAll().pipe(map((res: StockResponse) => res.message));
+    this.stocks$ = this.stockService.getAll().pipe(map((res: StockResponse) => res.stocks));
   }
 }
