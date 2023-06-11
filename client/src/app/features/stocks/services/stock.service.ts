@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BaseService } from '@core/services/base.service';
-import { Observable, map } from 'rxjs';
-import { environment } from '@environment/environment'
-import { Stock, StockDto, StockResponse } from '../interfaces/stock';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {StockDto, StockResponse} from '../interfaces/stock';
+import {BaseService} from 'app/core/services/base.service';
+import {environment} from "environments/environment";
 
 @Injectable({
   providedIn: 'root'

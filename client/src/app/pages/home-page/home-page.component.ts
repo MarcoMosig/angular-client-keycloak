@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from "rxjs";
-import {AuthService} from "@core/services/auth.service";
+import {AuthService} from "app/core/services/auth.service";
 
 @Component({
   selector: 'app-home-page',

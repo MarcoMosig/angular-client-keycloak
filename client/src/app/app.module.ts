@@ -4,6 +4,9 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShouldLoginComponent } from './should-login.component';
+import {LayoutModule} from "./layout/layout.module";
+import {FuseMockApiModule} from "../@finvest/lib/mock-api/mock-api.module";
+import {mockApiServices} from "./mock-api";
 
 @NgModule({
   declarations: [
@@ -14,6 +17,8 @@ import { ShouldLoginComponent } from './should-login.component';
     BrowserModule,
     AppRoutingModule,
     CoreModule.forRoot(),
+    FuseMockApiModule.forRoot(mockApiServices),
+    LayoutModule
   ],
   providers: [
   ],

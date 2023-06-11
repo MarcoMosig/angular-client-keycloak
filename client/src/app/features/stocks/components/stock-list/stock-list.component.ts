@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { StockService } from '../../services/stock.service';
 import { Observable, map, BehaviorSubject } from 'rxjs';
-import { Stock, StockResponse } from '@features/stocks/interfaces/stock';
+import {Stock, StockResponse} from "../../interfaces/stock";
 
 @Component({
   selector: 'app-stock-list',

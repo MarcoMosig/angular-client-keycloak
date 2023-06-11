@@ -1,4 +1,4 @@
-import { FinvestNavigationItem } from "@features/headers/navigation.types";
+import { FinvestNavigationItem } from "@finvest/components/navigation";
 
 export interface Navigation {
     horizontal: FinvestNavigationItem[];

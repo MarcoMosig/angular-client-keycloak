@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { IsActiveMatchOptions } from '@angular/router';
-import { FinvestNavigationItem } from '@features/headers/navigation.types';
+import { FinvestNavigationItem } from '@finvest/components/navigation/navigation.types';
 
 @Component({
   selector: 'fuse-horizontal-navigation-basic-item',
   templateUrl: './basic.component.html',
   styleUrls: ['./basic.component.scss']
 })
-export class BasicComponent implements OnInit, OnDestroy {
+export class FinvestHorizontalNavigationBasicItemComponent implements OnInit, OnDestroy {
   @Input() item: FinvestNavigationItem | undefined;
   @Input() name: string = "";
 

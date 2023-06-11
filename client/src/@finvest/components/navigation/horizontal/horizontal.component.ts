@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ReplaySubject, Subject } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'app/core/services/auth.service';
 import { FinvestNavigationItem } from '../navigation.types';
 
 @Component({
@@ -8,10 +8,10 @@ import { FinvestNavigationItem } from '../navigation.types';
   templateUrl: './horizontal.component.html',
   styleUrls: ['./horizontal.component.scss']
 })
-export class HorizontalComponent {
+export class FinvestHorizontalNavigationComponent {
 
   @Input() name: string = 'horizontal';
-  @Input() navigation: FinvestNavigationItem[] = [];
+  @Input() navigation: FinvestNavigationItem[] | undefined;
   constructor(
     private authService: AuthService,) { }
 
