@@ -5,7 +5,12 @@ import { StocksRoutingModule } from './stocks-rounting.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { StockComponent } from './stock.component';
 import { StockCardComponent } from './components/stock-card/stock-card.component';
-
+import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -16,6 +21,12 @@ import { StockCardComponent } from './components/stock-card/stock-card.component
   imports: [
     CommonModule,
     StocksRoutingModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatLuxonDateModule,
     SharedModule,
   ]
 })

@@ -1,11 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StockComponent } from './stock.component';
+import { StockListComponent } from './components/stock-list/stock-list.component';
+import { StocksResolver } from './stocks.resolver';
 
 const routes: Routes = [
     {
         path: '',
-        component: StockComponent
+        component: StockComponent,
+        children: [
+            {
+                path: '',
+                component: StockListComponent,
+                resolve: {
+                    stocks: StocksResolver
+                }
+            }
+        ]
     },
 ];
 

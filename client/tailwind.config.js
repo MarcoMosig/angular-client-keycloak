@@ -281,12 +281,14 @@ const config = {
     },
     plugins    : [
 
-        // Fuse - Tailwind plugins
+        // Tailwind plugins
         require(path.resolve(__dirname, ('src/@finvest/tailwind/plugins/utilities'))),
         require(path.resolve(__dirname, ('src/@finvest/tailwind/plugins/icon-size'))),
         require(path.resolve(__dirname, ('src/@finvest/tailwind/plugins/theming')))({themes}),
 
         // Other third party and/or custom plugins
+        require('@tailwindcss/typography')({modifiers: ['sm', 'lg']}),
+        require('@tailwindcss/line-clamp')
     ]
 };
 

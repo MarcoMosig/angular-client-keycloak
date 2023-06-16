@@ -2,7 +2,7 @@ import { IsActiveMatchOptions, Params, QueryParamsHandling } from '@angular/rout
 
 export interface FinvestNavigationItem {
     id?: string;
-    title?: string;
+    title?: string | "";
     subtitle?: string;
     type:
     | 'aside'
@@ -12,12 +12,12 @@ export interface FinvestNavigationItem {
     | 'group'
     | 'spacer';
     hidden?: (item: FinvestNavigationItem) => boolean;
-    active?: boolean;
+    active?: boolean | true;
     disabled?: boolean;
     tooltip?: string;
     link?: string;
-    fragment?: string;
-    preserveFragment?: boolean;
+    fragment?: string | null;
+    preserveFragment?: boolean | null;
     queryParams?: Params | null;
     queryParamsHandling?: QueryParamsHandling | null;
     externalLink?: boolean;
@@ -29,14 +29,14 @@ export interface FinvestNavigationItem {
     | string;
     exactMatch?: boolean;
     isActiveMatchOptions?: IsActiveMatchOptions;
-    function?: (item: FinvestNavigationItem) => void;
+    function?: (item: FinvestNavigationItem | undefined | null) => void;
     classes?: {
         title?: string;
         subtitle?: string;
         icon?: string;
         wrapper?: string;
     };
-    icon?: string;
+    icon?: string | "";
     badge?: {
         title?: string;
         classes?: string;

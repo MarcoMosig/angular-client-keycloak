@@ -24,6 +24,10 @@
 							"zone.js"
 						],
 						"tsConfig": "tsconfig.app.json",
+						"allowedCommonJsDependencies": [
+                            "apexcharts",
+                            "highlight.js"
+						],
 						"assets": [
 							"src/favicon.ico",
 							"src/assets",
@@ -32,6 +36,8 @@
 						"styles": [
 							"src/@finvest/styles/tailwind.scss",
                             "src/@finvest/styles/themes.scss",
+							"src/styles/vendors.scss",
+							"src/@finvest/styles/main.scss",
 							"src/styles/styles.scss",
                             "src/styles/tailwind.scss"
 						],
@@ -40,21 +46,21 @@
                             "includePaths": [
                                 "src/@finvest/styles"
                             ]
-                        },
+                        }
 					},
 					"configurations": {
 						"production": {
 							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kb",
-									"maximumError": "1mb"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "6kb",
-									"maximumError": "8kb"
-								}
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "3mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "75kb",
+                                    "maximumError": "90kb"
+                                }
 							],
 							"outputHashing": "all"
 						},

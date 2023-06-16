@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-stock',
-  template: `<app-stock-list></app-stock-list>`
+  templateUrl: 'stock.component.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StockComponent {
 }

@@ -1,161 +1,48 @@
-<!-- Title -->
-<div class="pt-32  bg-white">
-    <h1 class="text-center text-2xl font-bold text-gray-800">All Stocks</h1>
-</div>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <div class="flex-auto h-full bg-card dark:bg-transparent">
+        <div class="flex flex-col">
+            <div class="flex-auto">
+                <!-- Header -->
+                <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8">
+                    <!-- Title -->
+                    <div>
+                        <div class="text-4xl font-extrabold tracking-tight leading-none">Stocks</div>
+                        <div class="ml-0.5 font-medium text-secondary">
+                            <ng-container *ngIf="stocksCount > 0">
+                                {{stocksCount}}
+                            </ng-container>
+                            {{stocksCount | i18nPlural: {
+                            '=0' : 'No stocks',
+                            '=1' : 'stock',
+                            'other': 'stocks'
+                            } }}
+                        </div>
+                    </div>
+                    <!-- Main actions -->
+                    <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+                        <!-- Search -->
+                        <div class="flex-auto">
+                            <mat-form-field
+                                class="fuse-mat-dense fuse-mat-rounded w-full min-w-50"
+                                subscriptSizing="dynamic">
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                <input
+                                    matInput
+                                    [formControl]="searchInputControl"
+                                    [autocomplete]="'off'"
+                                    [placeholder]="'Search stocks'">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
 
-<section class="py-10 bg-white-100">
-    <div class="flex flex-col flex-auto min-w-0">
-        <div class="flex-auto p-6 sm:p-10">
-            <finvest-card class="flex flex-col max-w-140 w-full filter-post" *ngFor="let stock of (stocks$ | async)">
-                <div class="flex items-center mx-6 sm:mx-8 mt-6 mb-4">
-                    <img
-                        class="w-10 h-10 rounded-full mr-4"
-                        src="assets/images/female-01.jpg"
-                        alt="Card cover image">
-                    <div class="flex flex-col">
-                        <span class="font-semibold leading-none">{{stock.company}}</span>
-                        <span class="text-sm text-secondary leading-none mt-1">29 minutes ago</span>
-                    </div>
-                    <button
-                        class="ml-auto -mr-4">
-                        <!-- <mat-icon
-                            class="icon-size-5"
-                            [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon> -->
-                    </button>
-                    <!-- <mat-menu #postCardMenu09="matMenu">
-                        <button mat-menu-item>
-                            <span class="flex items-center">
-                                <mat-icon
-                                    class="icon-size-5 mr-3"
-                                    [svgIcon]="'heroicons_solid:save'"></mat-icon>
-                                <span>Save post</span>
-                            </span>
-                        </button>
-                        <button mat-menu-item>
-                            <span class="flex items-center">
-                                <mat-icon
-                                    class="icon-size-5 mr-3"
-                                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
-                                <span>Hide post</span>
-                            </span>
-                        </button>
-                        <button mat-menu-item>
-                            <span class="flex items-center">
-                                <mat-icon
-                                    class="icon-size-5 mr-3"
-                                    [svgIcon]="'heroicons_solid:clock'"></mat-icon>
-                                <span>Snooze for 30 days</span>
-                            </span>
-                        </button>
-                        <button mat-menu-item>
-                            <span class="flex items-center">
-                                <mat-icon
-                                    class="icon-size-5 mr-3"
-                                    [svgIcon]="'heroicons_solid:minus-circle'"></mat-icon>
-                                <span>Hide all</span>
-                            </span>
-                        </button>
-                        <mat-divider class="my-2"></mat-divider>
-                        <button mat-menu-item>
-                            <span class="flex items-center">
-                                <mat-icon
-                                    class="icon-size-5 mr-3"
-                                    [svgIcon]="'heroicons_solid:exclamation'"></mat-icon>
-                                <span>Report post</span>
-                            </span>
-                        </button>
-                        <button mat-menu-item>
-                            <span class="flex items-center">
-                                <mat-icon
-                                    class="icon-size-5 mr-3"
-                                    [svgIcon]="'heroicons_solid:bell'"></mat-icon>
-                                <span>Turn on notifications for this post</span>
-                            </span>
-                        </button>
-                    </mat-menu> -->
+                <!-- STOCK LIST -->
+                <div class="flex flex-wrap items-start  max-w-400 -m-4 bg-slate-300">
                 </div>
-                <div class="mx-6 sm:mx-8 mt-2 mb-6">
-                    Hey!! I never saw this episode, it was amazing.. I think I’m going to buy myself a set and try his technique at home!
-                </div>
-                <div class="mx-6 sm:mx-8 mb-4">
-                    <div class="flex rounded overflow-hidden border">
-                        <div class="flex-0 w-40">
-                            <img
-                                class="w-full h-full object-cover"
-                                src="assets/images/35-640x480.jpg"
-                                alt="Card cover image">
-                        </div>
-                        <div class="m-4">
-                            <div class="text-lg font-medium">Rob Boss - Season 09 Episode 04</div>
-                            <div class="text-secondary mt-1">
-                                We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little happy sunlight shining through there.
-                            </div>
-                            <div class="text-sm text-hint mt-2">example.com</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center mx-3 sm:mx-5">
-                    <button
-                        class="px-3 mr-1"
-                        mat-button>
-                        <!-- <mat-icon
-                            class="icon-size-5 text-red-500"
-                            [svgIcon]="'heroicons_solid:heart'"></mat-icon> -->
-                        <span class="ml-2">Unlike</span>
-                    </button>
-                    <button
-                        class="px-3 mr-1"
-                        mat-button>
-                        <!-- <mat-icon
-                            class="icon-size-5"
-                            [svgIcon]="'heroicons_solid:chat-alt'"></mat-icon> -->
-                        <span class="ml-2">Comment</span>
-                    </button>
-                    <button
-                        class="px-3 mr-1"
-                        mat-button>
-                        <!-- <mat-icon
-                            class="icon-size-5"
-                            [svgIcon]="'heroicons_solid:share'"></mat-icon> -->
-                        <span class="ml-2">Share</span>
-                    </button>
-                </div>
-                <hr class="border-b mx-6 sm:mx-8 mt-4 mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center mx-6 sm:mx-8 mb-4 sm:mb-6">
-                    <div class="flex items-center">
-                        <!-- <img
-                            class="w-6 h-6 m-0.5 rounded-full text-card ring-2 ring-bg-card"
-                            src="assets/images/avatars/female-02.jpg"
-                            alt="Card cover image">
-                        <img
-                            class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
-                            src="assets/images/avatars/female-04.jpg"
-                            alt="Card cover image">
-                        <img
-                            class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
-                            src="assets/images/avatars/male-09.jpg"
-                            alt="Card cover image">
-                        <img
-                            class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
-                            src="assets/images/avatars/male-07.jpg"
-                            alt="Card cover image"> -->
-                        <div class="text-md tracking-tight ml-3">You and 24 more liked this</div>
-                    </div>
-                    <div class="hidden sm:flex flex-auto"></div>
-                    <div class="flex items-center mt-4 sm:mt-0">
-                        <button
-                            class="px-3 mr-1 -ml-2 sm:ml-0"
-                            mat-button>
-                            4 shares
-                        </button>
-                        <button
-                            class="px-3 sm:-mr-3"
-                            mat-button>
-                            No comments
-                        </button>
-                    </div>
-                </div>
-            </finvest-card>
+            </div>
         </div>
     </div>
-</section>
+</div>

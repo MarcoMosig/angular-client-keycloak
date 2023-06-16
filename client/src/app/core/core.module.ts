@@ -7,6 +7,7 @@ import { AuthGuardWithForcedLogin } from './guards/auth-guard-with-forced-login.
 import { AuthGuard } from './guards/auth-guard.service';
 import { authModuleConfig } from './auth-module-config';
 import { AuthService } from './services/auth.service';
+import { IconsModule } from './icon/icons.module';
 
 
 export function storageFactory(): OAuthStorage {
@@ -20,6 +21,7 @@ export function storageFactory(): OAuthStorage {
   imports: [
     HttpClientModule,
     OAuthModule.forRoot(),
+    IconsModule,
   ],
   providers: [
     AuthService,
