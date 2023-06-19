@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <!-- Contacts list -->
+        <!-- Stocks list -->
         <div class="relative">
           <ng-container *ngIf="stocks$ | async as stocks">
             <ng-container *ngIf="stocks.length; else noStocks">
@@ -70,7 +70,7 @@
                     {{stock.company.charAt(0)}}
                   </div>
                 </ng-container>
-                <!-- Contact -->
+                <!-- Stock -->
                 <a
                   class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b"
                   [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedStock || selectedStock.id !== stock.id,
@@ -98,7 +98,7 @@
             </ng-container>
           </ng-container>
 
-          <!-- No contacts -->
+          <!-- No stocks -->
           <ng-template #noStocks>
             <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no stocks!</div>
           </ng-template>
