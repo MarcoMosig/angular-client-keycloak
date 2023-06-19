@@ -10,7 +10,10 @@ const port = process.env.PORT || 3000;
 
 app.get('/v1/stocks', function (req, res) {
   const stocks = [
-    { company: "Apple",
+    { 
+        id: "549f700a-f9e7-40e0-8e2b-cd18dee9ed68",
+        company: "Apple",
+        picture      : 'apc.jpg',
       wkn: "865985",
       isin: "US0378331005",
       symbol: "APC",
@@ -22,7 +25,10 @@ app.get('/v1/stocks', function (req, res) {
       currency: "USD",
       price: 178 
     },
-    { company: "Caterpillar",
+    {
+        id: "cc75a693-af53-456b-bb2e-564d3507b29e", 
+        company: "Caterpillar",
+        picture      : 'cat.jpg',
       wkn: "850598",
       isin: "US1491231015",
       symbol: "CAT",
@@ -34,7 +40,10 @@ app.get('/v1/stocks', function (req, res) {
       currency: "USD",
       price: 235 
     },
-    { company: "Walt Disney",
+    { 
+        id: "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff", 
+        company: "Walt Disney",
+        picture      : 'wdp.jpg',
       wkn: "855686",
       isin: "US2546871060",
       symbol: "WDP",
@@ -46,7 +55,10 @@ app.get('/v1/stocks', function (req, res) {
       currency: "USD",
       price: 86.06 
     },
-    { company: "3M",
+    {
+       id: "a74f1fe4-ac78-4034-af29-16ff071a3439",  
+    company: "3M",
+        picture      : 'mmm.jpg',
       wkn: "851745",
       isin: "US88579Y1010",
       symbol: "MMM",

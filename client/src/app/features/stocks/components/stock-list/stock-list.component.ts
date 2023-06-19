@@ -3,6 +3,7 @@ import { StockService } from '../../services/stock.service';
 import { UntypedFormControl } from '@angular/forms';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { Stock, StockResponse } from "../../interfaces/stock";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-stock-list',
@@ -10,14 +11,18 @@ import { Stock, StockResponse } from "../../interfaces/stock";
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StockListComponent implements OnInit {
+export class StockListComponent implements OnInit, OnDestroy {
 
   stocks$: Observable<Stock[]> | undefined;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   searchInputControl: UntypedFormControl = new UntypedFormControl();
   stocksCount: number = 0;
+  selectedStock: Stock | undefined;
+  drawerMode?: 'side' | 'over';
   constructor(
+    private _activatedRoute: ActivatedRoute,
     private stockService: StockService,
+    private _router: Router,
     private _changeDetectorRef: ChangeDetectorRef,) {
 
   }
@@ -32,5 +37,26 @@ export class StockListComponent implements OnInit {
         // Mark for check
         this._changeDetectorRef.markForCheck();
       });
+  }
+
+  onBackdropClicked(): void
+  {
+    // Go back to the list
+    this._router.navigate(['./'], {relativeTo: this._activatedRoute});
+
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
+
+  ngOnDestroy(): void
+  {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+  }
+
+  trackByFn(index: number, item: any): any
+  {
+    return item.id || index;
   }
 }

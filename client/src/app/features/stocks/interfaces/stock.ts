@@ -4,10 +4,12 @@ export interface StockResponse {
 }
 
 export interface Stock {
+    id: string,
     company: string;
     wkn: string;
     isin: string;
     symbol: string;
+    picture: string;
     sector: string;
     DIVe: string;
     KGVe: number;
@@ -18,10 +20,12 @@ export interface Stock {
 }
 
 export interface StockDto {
+    id: string,
     company: string;
     wkn: string;
     isin: string;
     symbol: string;
+    picture: string;
     sector: string;
     DIVe: string;
     KGVe: number;
