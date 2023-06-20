@@ -1,47 +1,71 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <div class="flex-auto">
+        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+            <div>
+                <div class="text-4xl font-extrabold tracking-tight leading-none">OAuth2/OpenID</div>
 
-
+            </div>
+        </div>
+        <!-- OAuth2 Details -->
+        <div class="relative">
+            <div class="ml-0.5 font-medium text-secondary">
+                <!-- IsAuthenticated -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>IsAuthenticated</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{isAuthenticated$ | async}}</div>
+                    </div>
+                </a>
+                <!-- HasValidToken -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>HasValidToken</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{hasValidToken}}</div>
+                    </div>
+                </a>
+                <!-- IsDoneLoading -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>IsDoneLoading</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{isDoneLoading$ | async}}</div>
+                    </div>
+                </a>
+                    <!-- CanActivateProtectedRoutes -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>CanActivateProtectedRoutes</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{canActivateProtectedRoutes$ | async}}</div>
+                    </div>
+                </a>
+                <!-- IdentityClaims -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>IdentityClaims</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{identityClaims | json}}</div>
+                    </div>
+                </a>
+                <!-- RefreshToken -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>RefreshToken</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{refreshToken}}</div>
+                    </div>
+                </a>
+                <!-- AccessToken -->
+                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>AccessToken</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{accessToken}}</div>
+                    </div>
+                </a>
+                <!-- IdToken -->
+                <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="min-w-0 ml-4">
+                        <div class="font-medium leading-5 truncate"><strong>IdToken</strong></div>
+                        <div class="leading-5 truncate text-secondary">{{idToken}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<!--<div class="pt-32 py-10">-->
-<!--  <div class="mx-auto grid max-w-6xl  grid-cols-1 ">-->
-<!--    <table class="table-auto">-->
-<!--      <tbody>-->
-<!--        <tr>-->
-<!--          <th>IsAuthenticated</th>-->
-<!--          <td><code id="isAuthenticated">{{isAuthenticated$ | async}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>HasValidToken</th>-->
-<!--          <td><code id="hasValidToken">{{hasValidToken}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>IsDoneLoading</th>-->
-<!--          <td><code id="isDoneLoading">{{isDoneLoading$ | async}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>CanActivateProtectedRoutes</th>-->
-<!--          <td><code id="canActivateProtectedRoutes">{{canActivateProtectedRoutes$ | async}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>IdentityClaims</th>-->
-<!--          <td class="pre"><code id="identityClaims">{{identityClaims | json}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>RefreshToken</th>-->
-<!--          <td><code class="break-all">{{refreshToken}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>AccessToken</th>-->
-<!--          <td><code class="break-all">{{accessToken}}</code></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>IdToken</th>-->
-<!--          <td><code class="break-all">{{idToken}}</code></td>-->
-<!--        </tr>-->
-<!--      </tbody>-->
-<!--  -->
-<!--    </table>-->
-<!--  </div>-->
-<!--</div>-->
-

@@ -20,20 +20,12 @@ export const defaultNavigation: FinvestNavigationItem[] = [
         active: true,
         children: [
             {
-                id: 'dashboards.project',
-                title: 'Project',
-                type: 'group',
-                icon: 'heroicons_outline:clipboard-check',
-                link: '/dashboards/project',
+                id: 'dashboards.finance',
                 active: true,
-            },
-            {
-                id: 'dashboards.analytics',
-                active: true,
-                title: 'Analytics',
+                title: 'Finance',
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
-                link: '/dashboards/analytics',
+                link: '/dashboards/finance',
             },
         ]
     },
