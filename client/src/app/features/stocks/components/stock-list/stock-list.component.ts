@@ -4,6 +4,8 @@ import { UntypedFormControl } from '@angular/forms';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { Stock, StockResponse } from "../../interfaces/stock";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ApexOptions} from "ng-apexcharts";
+import {StockPriceService} from "../../services/stock-price.service";
 
 @Component({
   selector: 'app-stock-list',
@@ -14,6 +16,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class StockListComponent implements OnInit, OnDestroy {
 
   stocks$: Observable<Stock[]> | undefined;
+  data: any;
+  chartWeeklyExpenses: ApexOptions = {};
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   searchInputControl: UntypedFormControl = new UntypedFormControl();
   stocksCount: number = 0;
@@ -22,6 +26,7 @@ export class StockListComponent implements OnInit, OnDestroy {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private stockService: StockService,
+    private stockPriceService: StockPriceService,
     private _router: Router,
     private _changeDetectorRef: ChangeDetectorRef,) {
 
@@ -36,6 +41,14 @@ export class StockListComponent implements OnInit, OnDestroy {
         this.stocksCount = stocks.length;
         // Mark for check
         this._changeDetectorRef.markForCheck();
+      });
+    this.stockPriceService.data$
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((data) => {
+        // Store the data
+        this.data = data;
+        // Prepare the chart data
+        this._prepareChartData();
       });
   }
 
@@ -55,8 +68,37 @@ export class StockListComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  trackByFn(index: number, item: any): any
-  {
-    return item.id || index;
+  private _prepareChartData() :void {
+    this.chartWeeklyExpenses = {
+      chart  : {
+        animations: {
+          enabled: false
+        },
+        fontFamily: 'inherit',
+        foreColor : 'inherit',
+        height    : '100%',
+        type      : 'line',
+        sparkline : {
+          enabled: true
+        }
+      },
+      colors : ['#22D3EE'],
+      series : this.data.weeklyExpenses.series,
+      stroke : {
+        curve: 'smooth'
+      },
+      tooltip: {
+        theme: 'dark'
+      },
+      xaxis  : {
+        type      : 'category',
+        categories: this.data.weeklyExpenses.labels
+      },
+      yaxis  : {
+        labels: {
+          formatter: (val): string => `$${val}`
+        }
+      }
+    };
   }
 }

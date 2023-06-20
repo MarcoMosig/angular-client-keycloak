@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StockComponent } from './stock.component';
 import { StockListComponent } from './components/stock-list/stock-list.component';
 import { StocksResolver } from './stocks.resolver';
+import {StocksPricesResolver} from "./stocks-prices.resolver";
 
 const routes: Routes = [
     {
@@ -13,7 +14,8 @@ const routes: Routes = [
                 path: '',
                 component: StockListComponent,
                 resolve: {
-                    stocks: StocksResolver
+                    stocks: StocksResolver,
+                    prices: StocksPricesResolver,
                 }
             }
         ]

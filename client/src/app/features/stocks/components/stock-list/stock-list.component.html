@@ -59,50 +59,60 @@
           </div>
         </div>
 
-        <!-- Contacts list -->
-        <div class="relative">
-          <ng-container *ngIf="stocks$ | async as stocks">
-            <ng-container *ngIf="stocks.length; else noStocks">
-              <ng-container *ngFor="let stock of stocks; let i = index; trackBy: trackByFn">
-                <!-- Group -->
-                <ng-container *ngIf="i === 0 || stock.company.charAt(0) !== stocks[i - 1].company.charAt(0)">
-                  <div class="z-10 sticky top-0 -mt-px px-6 py-1 md:px-8 border-t border-b font-medium uppercase text-secondary bg-gray-50 dark:bg-gray-900">
-                    {{stock.company.charAt(0)}}
+        <!-- stock list -->
+        <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+          <div class="w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full min-w-0">
+              <!-- Stock -->
+              <div *ngFor="let s of (stocks$ | async)" class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+<!--                <div class="flex flex-col flex-auto items-center bg-card shadow rounded-2xl overflow-hidden">-->
+                <div class="flex items-start justify-between">
+                  <div class="text-lg font-medium tracking-tight leading-6 truncate">{{s.company}}</div>
+                  <div class="ml-2 -mt-2 -mr-3">
+                    <button
+                      mat-icon-button
+                      [matMenuTriggerFor]="weeklyExpensesMenu">
+                      <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon>
+                    </button>
+                    <mat-menu #weeklyExpensesMenu="matMenu">
+                      <button mat-menu-item>This week</button>
+                      <button mat-menu-item>Last week</button>
+                      <button mat-menu-item>2 weeks ago</button>
+                    </mat-menu>
                   </div>
-                </ng-container>
-                <!-- Contact -->
-                <a
-                  class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b"
-                  [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedStock || selectedStock.id !== stock.id,
-                                                'bg-primary-50 dark:bg-hover': selectedStock && selectedStock.id === stock.id}"
-                  [routerLink]="['./', stock.id]">
-                  <div class="flex flex-0 items-center justify-center w-10 h-10 rounded-full overflow-hidden">
-                    <ng-container *ngIf="stock.picture">
-                      <img
-                        class="object-cover w-full h-full"
-                        [src]="stock.picture"
-                        alt="Contact avatar"/>
-                    </ng-container>
-                    <ng-container *ngIf="!stock.picture">
-                      <div class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
-                        {{stock.company.charAt(0)}}
+                </div>
+                <div class="flex items-center mt-1">
+                  <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                      {{data.weeklyExpenses.amount | currency:'USD'}}
+                    </div>
+                    <div class="flex items-center">
+                      <mat-icon
+                        class="mr-1 icon-size-5 text-green-500"
+                        [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
+                      <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                        <span class="text-green-500">2%</span>
+                        below projected
                       </div>
-                    </ng-container>
+                    </div>
                   </div>
-                  <div class="min-w-0 ml-4">
-                    <div class="font-medium leading-5 truncate">{{stock.company}}</div>
-<!--                    <div class="leading-5 truncate text-secondary">{{stock.title}}</div>-->
+                  <div class="flex flex-col flex-auto ml-8">
+                    <apx-chart
+                      class="flex-auto w-full h-16"
+                      [chart]="chartWeeklyExpenses.chart"
+                      [colors]="chartWeeklyExpenses.colors"
+                      [series]="chartWeeklyExpenses.series"
+                      [stroke]="chartWeeklyExpenses.stroke"
+                      [tooltip]="chartWeeklyExpenses.tooltip"
+                      [xaxis]="chartWeeklyExpenses.xaxis"
+                      [yaxis]="chartWeeklyExpenses.yaxis"></apx-chart>
                   </div>
-                </a>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-
-          <!-- No contacts -->
-          <ng-template #noStocks>
-            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no stocks!</div>
-          </ng-template>
-
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

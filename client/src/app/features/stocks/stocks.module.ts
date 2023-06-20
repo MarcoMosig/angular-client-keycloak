@@ -12,6 +12,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatRippleModule} from "@angular/material/core";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {MatTabsModule} from "@angular/material/tabs";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -23,13 +31,20 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     CommonModule,
     StocksRoutingModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatDividerModule,
-    MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
-    MatLuxonDateModule,
-    SharedModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatRippleModule,
     MatSidenavModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    NgApexchartsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    SharedModule,
   ]
 })
 export class StocksModule { }
