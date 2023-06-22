@@ -1,6 +1,6 @@
 
 export interface StockResponse {
-    stocks: Stock[]
+    data: Stock[]
 }
 
 export interface Stock {

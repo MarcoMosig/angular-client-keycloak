@@ -81,7 +81,7 @@ app.get('/v1/stocks/search', (req, res, next) => {
     const filteredStocks = stocks.filter(stock => {
       let isValid = true;
       for (key in filters) {
-       console.log(key, stock[key].toLowerCase(), filters[key]);
+       //console.log(key, stock[key].toLowerCase(), filters[key]);
         isValid = isValid && stock[key].toLowerCase() == filters[key];
       }
       return isValid;

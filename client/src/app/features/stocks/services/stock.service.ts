@@ -17,7 +17,7 @@ export class StockService extends BaseService<StockResponse, StockDto> {
 
 
   constructor(http: HttpClient) {
-    super(http, "v1/stocks/list");
+    super(http, "v1/stocks/");
   }
 
 
@@ -33,7 +33,7 @@ export class StockService extends BaseService<StockResponse, StockDto> {
   getStocks(): Observable<Stock[]> {
     const url = environment.apiURL;
     return this.http.get<StockResponse>(`${url}/v1/stocks/list`).pipe(
-      map((res: StockResponse) => { return res.stocks }),
+      map((res: StockResponse) => { return res.data }),
       tap((stocks) => this._stocks.next(stocks))
     );
   }
@@ -41,9 +41,9 @@ export class StockService extends BaseService<StockResponse, StockDto> {
   searchStocks(query: string): Observable<Stock[]> {
     const url = environment.apiURL;
     return this.http.get<StockResponse>(`${url}/v1/stocks/search`, {
-      params: { query }
+      params: { "company": query }
     }).pipe(
-      map((res: StockResponse) => { return res.stocks }),
+      map((res: StockResponse) => { return res.data }),
       tap((stocks) => this._stocks.next(stocks))
     );
   }

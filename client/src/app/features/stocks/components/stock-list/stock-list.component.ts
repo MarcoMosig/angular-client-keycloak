@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { StockService } from '../../services/stock.service';
 import { UntypedFormControl } from '@angular/forms';
-import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { Stock, StockResponse } from "../../interfaces/stock";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApexOptions } from "ng-apexcharts";
@@ -54,6 +54,7 @@ export class StockListComponent implements OnInit, OnDestroy {
     // Subscribe to search input field value changes
     this.searchInputControl.valueChanges
       .pipe(
+        debounceTime(300),
         takeUntil(this._unsubscribeAll),
         switchMap(query =>
           // Search

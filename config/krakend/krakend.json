@@ -54,13 +54,13 @@
           "encoding": "json",
           "is_collection": true,
           "mapping": {
-            "collection": "stocks"
+            "collection": "data"
           }
         }
       ]
     },
     {
-      "endpoint": "/v1/svc2/healthcheck",
+      "endpoint": "/v1/stocks/prices",
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
@@ -76,6 +76,30 @@
           ]
         }
       ]
+    },
+    {
+      "endpoint": "/v1/stocks/search",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/v1/stocks/search",
+          "encoding": "json",
+          "method": "GET",
+          "is_collection": true,
+          "mapping": {
+            "collection": "data"
+          },
+          "host": [
+            "http://microservice1:3000"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "input_query_strings": [
+        "company"
+      ]
     }
-  ]
+  ],
+  "debug_endpoint": true
 }
