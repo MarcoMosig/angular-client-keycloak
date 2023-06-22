@@ -1,132 +1,89 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
-
-  <mat-drawer-container
-    class="flex-auto h-full bg-card dark:bg-transparent"
-    (backdropClick)="onBackdropClicked()">
-
-    <!-- Drawer -->
-    <mat-drawer
-      class="w-full md:w-160 dark:bg-gray-900"
-      [mode]="drawerMode"
-      [opened]="false"
-      [position]="'end'"
-      [disableClose]="true"
-      #matDrawer>
-      <router-outlet></router-outlet>
-    </mat-drawer>
-
-    <mat-drawer-content class="flex flex-col">
-
-      <!-- Main -->
-      <div class="flex-auto">
-
-        <!-- Header -->
-        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
-
-          <!-- Title -->
-          <div>
-            <div class="text-4xl font-extrabold tracking-tight leading-none">Stocks</div>
-            <div class="ml-0.5 font-medium text-secondary">
-              <ng-container *ngIf="stocksCount > 0">
-                {{stocksCount}}
-              </ng-container>
-              {{stocksCount | i18nPlural: {
-              '=0'   : 'No stocks',
-              '=1'   : 'stock',
-              'other': 'stocks'
+<div class="flex flex-col flex-auto w-full">
+  <div class="bg-card">
+    <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+      <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Title -->
+        <div>
+          <div class="text-4xl font-extrabold tracking-tight leading-none">Stocks</div>
+          <div class="ml-0.5 font-medium text-secondary">
+            <ng-container *ngIf="stocksCount > 0">
+              {{stocksCount}}
+            </ng-container>
+            {{stocksCount | i18nPlural: {
+            '=0' : 'No stocks',
+            '=1' : 'stock',
+            'other': 'stocks'
             } }}
-            </div>
-          </div>
-
-          <!-- Main actions -->
-          <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
-            <!-- Search -->
-            <div class="flex-auto">
-              <mat-form-field
-                class="fuse-mat-dense fuse-mat-rounded w-full min-w-50"
-                subscriptSizing="dynamic">
-                <mat-icon
-                  class="icon-size-5"
-                  matPrefix
-                  [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                <input
-                  matInput
-                  [formControl]="searchInputControl"
-                  [autocomplete]="'off'"
-                  [placeholder]="'Search contacts'">
-              </mat-form-field>
-            </div>
           </div>
         </div>
 
-        <!-- stock list -->
-        <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
-          <div class="w-full">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full min-w-0">
-              <!-- Stock -->
-              <div *ngFor="let s of (stocks$ | async)" class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
-<!--                <div class="flex flex-col flex-auto items-center bg-card shadow rounded-2xl overflow-hidden">-->
-                <div class="flex items-start justify-between">
-                  <div class="text-lg font-medium tracking-tight leading-6 truncate">{{s.company}}</div>
-                  <div class="ml-2 -mt-2 -mr-3">
-                    <button
-                      mat-icon-button
-                      [matMenuTriggerFor]="weeklyExpensesMenu">
-                      <mat-icon
-                        class="icon-size-5"
-                        [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon>
-                    </button>
-                    <mat-menu #weeklyExpensesMenu="matMenu">
-                      <button mat-menu-item>This week</button>
-                      <button mat-menu-item>Last week</button>
-                      <button mat-menu-item>2 weeks ago</button>
-                    </mat-menu>
-                  </div>
-                </div>
-                <div class="flex items-center mt-1">
-                  <div class="flex flex-col">
-                    <div class="text-3xl font-semibold tracking-tight leading-tight">
-                      {{data.weeklyExpenses.amount | currency:'USD'}}
-                    </div>
-                    <div class="flex items-center">
-                      <mat-icon
-                        class="mr-1 icon-size-5 text-green-500"
-                        [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
-                      <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
-                        <span class="text-green-500">2%</span>
-                        below projected
+        <!-- Main actions -->
+        <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+          <!-- Search -->
+          <div class="flex-auto">
+            <mat-form-field class="fuse-mat-dense fuse-mat-rounded w-full min-w-50" subscriptSizing="dynamic">
+              <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+              <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search'">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex flex-col flex-auto ml-8">
-                    <apx-chart
-                      class="flex-auto w-full h-16"
-                      [chart]="chartWeeklyExpenses.chart"
-                      [colors]="chartWeeklyExpenses.colors"
-                      [series]="chartWeeklyExpenses.series"
-                      [stroke]="chartWeeklyExpenses.stroke"
-                      [tooltip]="chartWeeklyExpenses.tooltip"
-                      [xaxis]="chartWeeklyExpenses.xaxis"
-                      [yaxis]="chartWeeklyExpenses.yaxis"></apx-chart>
+  <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+    <div class="w-full max-w-screen-xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0">
+        <div *ngFor="let s of (stocks$ | async)" class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+          <div  class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="text-lg font-medium tracking-tight leading-6 truncate">{{s.company}}</div>
+              <div class="ml-2 -mt-2 -mr-3">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="weeklyExpensesMenu">
+                  <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon>
+                </button>
+                <mat-menu #weeklyExpensesMenu="matMenu">
+                  <button mat-menu-item>This week</button>
+                  <button mat-menu-item>Last week</button>
+                  <button mat-menu-item>2 weeks ago</button>
+                </mat-menu>
+              </div>
+            </div>
+            <div class="flex items-center mt-1">
+              <div class="flex flex-col">
+                <div class="text-3xl font-semibold tracking-tight leading-tight">
+                  {{data.weeklyExpenses.amount | currency:'USD'}}
+                </div>
+                <div class="flex items-center">
+                  <mat-icon
+                    class="mr-1 icon-size-5 text-green-500"
+                    [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
+                  <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                    <span class="text-green-500">2%</span>
+                    below projected
+
                   </div>
                 </div>
               </div>
+              <div class="flex flex-col flex-auto ml-8">
+                <apx-chart
+                  class="flex-auto w-full h-16"
+                  [chart]="chartWeeklyExpenses.chart"
+                  [colors]="chartWeeklyExpenses.colors"
+                  [series]="chartWeeklyExpenses.series"
+                  [stroke]="chartWeeklyExpenses.stroke"
+                  [tooltip]="chartWeeklyExpenses.tooltip"
+                  [xaxis]="chartWeeklyExpenses.xaxis"
+                  [yaxis]="chartWeeklyExpenses.yaxis"></apx-chart>
+              </div>
             </div>
           </div>
-
-          <!-- No stocks -->
-          <ng-template #noStocks>
-            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no stocks!</div>
-          </ng-template>
-
->>>>>>> dac11c95d180899a543dcb72a0ed9ffbe4869313
         </div>
-
       </div>
-
-    </mat-drawer-content>
-
-  </mat-drawer-container>
-
+    </div>
+  </div>
 </div>

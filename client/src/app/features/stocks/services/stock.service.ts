@@ -37,4 +37,14 @@ export class StockService extends BaseService<StockResponse, StockDto> {
       tap((stocks) => this._stocks.next(stocks))
     );
   }
+
+  searchStocks(query: string): Observable<Stock[]> {
+    const url = environment.apiURL;
+    return this.http.get<StockResponse>(`${url}/v1/stocks/search`, {
+      params: { query }
+    }).pipe(
+      map((res: StockResponse) => { return res.stocks }),
+      tap((stocks) => this._stocks.next(stocks))
+    );
+  }
 }

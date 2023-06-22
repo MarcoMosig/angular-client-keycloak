@@ -3,9 +3,9 @@ import { StockService } from '../../services/stock.service';
 import { UntypedFormControl } from '@angular/forms';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { Stock, StockResponse } from "../../interfaces/stock";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ApexOptions} from "ng-apexcharts";
-import {StockPriceService} from "../../services/stock-price.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ApexOptions } from "ng-apexcharts";
+import { StockPriceService } from "../../services/stock-price.service";
 
 @Component({
   selector: 'app-stock-list',
@@ -50,51 +50,60 @@ export class StockListComponent implements OnInit, OnDestroy {
         // Prepare the chart data
         this._prepareChartData();
       });
+
+    // Subscribe to search input field value changes
+    this.searchInputControl.valueChanges
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        switchMap(query =>
+          // Search
+          this.stockService.searchStocks(query)
+        )
+      )
+      .subscribe();
   }
 
-  onBackdropClicked(): void
-  {
+  onBackdropClicked(): void {
     // Go back to the list
-    this._router.navigate(['./'], {relativeTo: this._activatedRoute});
+    this._router.navigate(['./'], { relativeTo: this._activatedRoute });
 
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
 
-  ngOnDestroy(): void
-  {
+  ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
 
-  private _prepareChartData() :void {
+  private _prepareChartData(): void {
     this.chartWeeklyExpenses = {
-      chart  : {
+      chart: {
         animations: {
           enabled: false
         },
         fontFamily: 'inherit',
-        foreColor : 'inherit',
-        height    : '100%',
-        type      : 'line',
-        sparkline : {
+        foreColor: 'inherit',
+        height: '100%',
+        type: 'line',
+        sparkline: {
           enabled: true
         }
       },
-      colors : ['#22D3EE'],
-      series : this.data.weeklyExpenses.series,
-      stroke : {
+      colors: ['#22D3EE'],
+      series: this.data.weeklyExpenses.series,
+      stroke: {
         curve: 'smooth'
       },
       tooltip: {
         theme: 'dark'
       },
-      xaxis  : {
-        type      : 'category',
+      xaxis: {
+        type: 'category',
         categories: this.data.weeklyExpenses.labels
       },
-      yaxis  : {
+      yaxis: {
         labels: {
           formatter: (val): string => `$${val}`
         }
