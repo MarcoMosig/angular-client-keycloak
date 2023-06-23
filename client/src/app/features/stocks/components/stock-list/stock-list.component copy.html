@@ -34,7 +34,7 @@
   <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
     <div class="w-full max-w-screen-xl mx-auto">
       <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0">
-        <div *ngFor="let s of (stocks$ | async)" class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+        <div *ngFor="let s of (stocks$ | async)" class="h-96 sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
           <div  class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
             <div class="flex items-start justify-between">
               <div class="text-lg font-medium tracking-tight leading-6 truncate">{{s.company}}</div>
@@ -53,13 +53,23 @@
                 </mat-menu>
               </div>
             </div>
-            <div class="flex items-start justify-between">
-              <div class="text-sm font-light tracking-tight leading-6 truncate">Symbol: {{s.symbol}}</div>
-              <div class="text-sm font-light tracking-tight leading-6 truncate">WKN: {{s.wkn}}</div>
-              <div class="text-sm font-light tracking-tight leading-6 truncate">ISIN: {{s.isin}}</div>
-            </div>
-            <div class="flex items-center mt-2">
+            <div class="flex items-center mt-1">
               <div class="flex flex-col">
+                <div class="text-3xl font-semibold tracking-tight leading-tight">
+                  {{data.weeklyExpenses.amount | currency:'USD'}}
+                </div>
+                <div class="flex items-center">
+                  <mat-icon
+                    class="mr-1 icon-size-5 text-green-500"
+                    [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
+                  <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                    <span class="text-green-500">2%</span>
+                    below projected
+
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col flex-auto ml-8">
                 <apx-chart
                   class="flex-auto w-full h-16"
                   [chart]="chartWeeklyExpenses.chart"
@@ -71,38 +81,6 @@
                   [yaxis]="chartWeeklyExpenses.yaxis"></apx-chart>
               </div>
             </div>
-            <div class="flex items-center mt-5">
-              <div class="flex flex-col">
-                <div class="text-3xl font-semibold tracking-tight leading-tight">
-                  {{s.price | currency:s.currency}}
-                </div>
-                <!-- <div class="flex items-center">
-                  <mat-icon
-                    class="mr-1 icon-size-5 text-green-500"
-                    [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
-                  <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
-                    <span class="text-green-500">2%</span>
-                    below projected
-
-                  </div>
-                </div> -->
-              </div>
-            </div>
-            <div class="flex flex-col mt-5">
-              <div class="text-md font-medium tracking-tight leading-tight">{{s.sector}}</div>
-            </div>
-            <div class="flex flex-col mt-5">
-              <div class="text-md font-medium tracking-tight leading-tight">{{s.market_cap | currency:s.currency}}</div>
-            </div>
-            <div class="flex flex-col mt-5">
-              <div class="text-md font-medium tracking-tight leading-tight">{{s.DIVe}}</div>
-            </div>
-            <div class="flex flex-col mt-5">
-              <div class="text-md font-medium tracking-tight leading-tight">{{s.KGVe}}</div>
-            </div>
-            <div class="flex flex-col mt-5">
-              <div class="text-md font-medium tracking-tight leading-tight">8</div>
-            </div>             
           </div>
         </div>
       </div>
