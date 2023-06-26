@@ -6,10 +6,13 @@ app.use(bodyParser.json());
 // Enable CORS support
 app.use(cors());
 
+const stockprices = require("./data/data");
+
 const port = process.env.PORT || 3001;
 
-app.get('/v1/healthcheck', function (req, res) {
-  res.json({message: 'I am healthy - Microservice 2'});
+app.get('/v1/stock/:stockID/prices', (req, res, next) => {
+  console.log(stockprices);
+  res.send(stockprices);
 });
 
 app.use('*', function (req, res) {
