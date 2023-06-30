@@ -1,0 +1,41 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+            <!-- Title -->
+            <div class="flex-1 min-w-0">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    {{stockDetail?.company}}
+                </h2>
+            </div>
+            <!-- Actions -->
+            <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <button
+                    class="ml-3"
+                    mat-stroked-button>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+                    <span class="ml-2">Settings</span>
+                </button>
+            </div>
+            <div class="hidden sm:flex items-center my-3">
+                <div class="p-4 leading-none rounded-l-xl border border-r-0">
+                    <div class="text-sm font-medium text-secondary">Market Cap</div>
+                    <div class="mt-2 font-mono text-xl">{{(500 / 1000000000) | number: '1.0-2' | currency}}B</div>
+                </div>
+                <div class="p-4 leading-none border border-r-0">
+                    <div class="text-sm font-medium text-secondary">Volume</div>
+                    <div class="mt-2 font-mono text-xl">{{(5000 / 1000000000) | number: '1.0-2' | currency}}B</div>
+                </div>
+                <div class="p-4 leading-none border border-r-0">
+                    <div class="text-sm font-medium text-secondary">Supply</div>
+                    <div class="mt-2 font-mono text-xl">{{(300 / 1000000) | number: '1.0-2'}}M</div>
+                </div>
+                <div class="p-4 leading-none rounded-r-xl border">
+                    <div class="text-sm font-medium text-secondary">All Time High</div>
+                    <div class="mt-2 font-mono text-xl">{{100000 | currency:'USD'}}</div>
+                </div>
+            </div>
+
+        </div>
+</div>

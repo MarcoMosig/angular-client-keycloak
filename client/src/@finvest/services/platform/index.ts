@@ -1,0 +1,1 @@
+export * from '@finvest/services/platform/platform.service';

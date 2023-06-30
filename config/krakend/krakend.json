@@ -60,7 +60,7 @@
       ]
     },
     {
-      "endpoint": "/v1/stocks/prices",
+      "endpoint": "/v1/stock/{stockID}/prices",
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
@@ -70,10 +70,15 @@
       },
       "backend": [
         {
-          "url_pattern": "/v1/healthcheck",
+          "url_pattern": "/v1/stock/{stockID}/prices",
           "host": [
             "http://microservice2:3001"
-          ]
+          ],
+          "is_collection": true,
+          "target": "",
+          "mapping": {
+            "collection": "prices"
+          }
         }
       ]
     },
@@ -98,6 +103,38 @@
       ],
       "input_query_strings": [
         "company"
+      ]
+    },
+    {
+      "endpoint": "/v1/stock/{stockID}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/v1/stock/{stockID}",
+          "encoding": "json",
+          "method": "GET",
+          "host": [
+            "http://microservice1:3000"
+          ],
+          "disable_host_sanitize": false,
+          "is_collection": false,
+          "mapping": {},
+          "target": ""
+        },
+        {
+          "url_pattern": "/v1/stock/{stockID}/prices",
+          "encoding": "json",
+          "method": "GET",
+          "host": [
+            "http://microservice2:3001"
+          ],
+          "is_collection": true,
+          "mapping": {
+            "collection": "prices"
+          },
+          "disable_host_sanitize": false
+        }
       ]
     }
   ],

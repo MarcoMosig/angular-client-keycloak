@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StockListComponent } from './components/stock-list/stock-list.component';
 import { StocksRoutingModule } from './stocks-rounting.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { StockComponent } from './stock.component';
@@ -19,10 +18,13 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
 import { NgApexchartsModule } from "ng-apexcharts";
+import { StockDetailsComponent } from './components/stock-details/stock-details.component';
+import { StockListComponent } from './components/stock-list/stock-list.component';
 
 @NgModule({
   declarations: [
     StockListComponent,
+    StockDetailsComponent,
     StockComponent,
   ],
   imports: [

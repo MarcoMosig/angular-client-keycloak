@@ -11,8 +11,12 @@ const stockprices = require("./data/data");
 const port = process.env.PORT || 3001;
 
 app.get('/v1/stock/:stockID/prices', (req, res, next) => {
-  console.log(stockprices);
-  res.send(stockprices);
+  const stockID = req.params.stockID;
+  if (stockID) {
+    const filtered = stockprices.filter(stock => stock.id == stockID);
+    res.send(filtered);
+  }
+  res.status(404, "I dont have a result");
 });
 
 app.use('*', function (req, res) {

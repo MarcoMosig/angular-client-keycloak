@@ -1,70 +1,58 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
-    <div class="flex-auto">
-        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+<div class="flex flex-col flex-auto w-full">
+    <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-8">
+        <!-- HEADER -->
+        <div class="flex items-center justify-between w-full">
             <div>
-                <div class="text-4xl font-extrabold tracking-tight leading-none">OAuth2/OpenID</div>
-
+                <div class="text-3xl font-semibold tracking-tight leading-8">OAuth2/OpenID Connect</div>
             </div>
         </div>
         <!-- OAuth2 Details -->
-        <div class="relative">
-            <div class="ml-0.5 font-medium text-secondary">
+        <div class="flex-auto -mt-px pt-4 sm:pt-6">
+            <div class="w-full max-w-screen-xl mx-auto">
                 <!-- IsAuthenticated -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>IsAuthenticated</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{isAuthenticated$ | async}}</div>
-                    </div>
-                </a>
-                <!-- HasValidToken -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>HasValidToken</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{hasValidToken}}</div>
-                    </div>
-                </a>
-                <!-- IsDoneLoading -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>IsDoneLoading</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{isDoneLoading$ | async}}</div>
-                    </div>
-                </a>
-                    <!-- CanActivateProtectedRoutes -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>CanActivateProtectedRoutes</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{canActivateProtectedRoutes$ | async}}</div>
-                    </div>
-                </a>
-                <!-- IdentityClaims -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>IdentityClaims</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{identityClaims | json}}</div>
-                    </div>
-                </a>
-                <!-- RefreshToken -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>RefreshToken</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{refreshToken}}</div>
-                    </div>
-                </a>
-                <!-- AccessToken -->
-                <a class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>AccessToken</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{accessToken}}</div>
-                    </div>
-                </a>
-                <!-- IdToken -->
-                <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="min-w-0 ml-4">
-                        <div class="font-medium leading-5 truncate"><strong>IdToken</strong></div>
-                        <div class="leading-5 truncate text-secondary">{{idToken}}</div>
-                    </div>
+                <div class="flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="font-medium leading-5"><strong>IsAuthenticated</strong></div>
+                    <div class="leading-5 text-secondary">{{isAuthenticated$ | async}}</div>
                 </div>
+                <!-- HasValidToken -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="font-medium leading-5"><strong>HasValidToken</strong></div>
+                    <div class="leading-5 text-secondary">{{hasValidToken}}</div>
+                </div> -->
+                <!-- IsDoneLoading -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="font-medium leading-5"><strong>IsDoneLoading</strong></div>
+                    <div class="leading-5 text-secondary">{{isDoneLoading$ | async}}</div>
+                </div> -->
+                <!-- CanActivateProtectedRoutes -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="font-medium leading-5"><strong>CanActivateProtectedRoutes</strong></div>
+                    <div class="leading-5 text-secondary">{{canActivateProtectedRoutes$ | async}}</div>
+                </div> -->
+                <!-- IdentityClaims -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="font-medium leading-5 overflow-visible"><strong>IdentityClaims</strong></div>
+                    <div class="leading-5 text-secondary overflow-visible">{{identityClaims | json}}</div>
+                </div> -->
+                <!-- RefreshToken -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
+                    <div class="font-medium leading-5"><strong>RefreshToken</strong></div>
+                    <div class="leading-5 text-secondary break-words">{{refreshToken}}</div>
+                </div> -->
+                <!-- AccessToken -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b overflow-x-auto">
+                    <div class="ml-4">
+                        <div class="font-medium leading-5"><strong>AccessToken</strong></div>
+                        <div class="leading-5 text-secondary">{{accessToken}}</div>
+                    </div>
+                </div> -->
+                <!-- IdToken -->
+                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b overflow-x-auto">
+                    <div class="ml-4">
+                        <div class="font-medium leading-5"><strong>IdToken</strong></div>
+                        <div class="leading-5 text-secondary">{{idToken}}</div>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>

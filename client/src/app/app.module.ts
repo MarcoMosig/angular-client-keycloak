@@ -13,7 +13,7 @@ import { FinvestModule } from '@finvest';
 @NgModule({
   declarations: [
     AppComponent,
-    ShouldLoginComponent
+    ShouldLoginComponent,
   ],
   imports: [
     BrowserModule,

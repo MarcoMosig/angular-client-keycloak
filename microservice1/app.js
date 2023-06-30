@@ -74,14 +74,28 @@ app.get('/v1/stocks', function (req, res) {
   res.json(stocks);
 });
 
+app.get('/v1/stock/:stockID', (req, res, next) => {
+  const stockID = req.params.stockID;
+  if(stockID) {
+    const stockResult = stocks.filter(s => s.id == stockID);
+    if(stockResult.length > 0) {
+      return res.send(stockResult.shift())
+    }
+    res.send(stockResult);
+  }
+  res.status(401, "Not found");
+});
+
 app.get('/v1/stocks/search', (req, res, next) => {
   const filters = req.query;
+  if(filters.company.length === 0) {
+    return res.send(stocks.sort((a, b) => a.company.localeCompare(b.company)));
+  }
   // If the filter exists...
   if (filters) {
     const filteredStocks = stocks.filter(stock => {
       let isValid = true;
       for (key in filters) {
-       //console.log(key, stock[key].toLowerCase(), filters[key]);
         isValid = isValid && stock[key].toLowerCase() == filters[key];
       }
       return isValid;

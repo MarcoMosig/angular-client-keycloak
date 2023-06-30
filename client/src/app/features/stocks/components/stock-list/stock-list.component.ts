@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestro
 import { StockService } from '../../services/stock.service';
 import { UntypedFormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
-import { Stock, StockResponse } from "../../interfaces/stock";
+import { Stock, StockListResponse } from "../../interfaces/stock";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApexOptions } from "ng-apexcharts";
 import { StockPriceService } from "../../services/stock-price.service";
@@ -55,6 +55,7 @@ export class StockListComponent implements OnInit, OnDestroy {
     this.searchInputControl.valueChanges
       .pipe(
         debounceTime(300),
+        filter(q => q.length > 2 || q.length === 0),
         takeUntil(this._unsubscribeAll),
         switchMap(query =>
           // Search
