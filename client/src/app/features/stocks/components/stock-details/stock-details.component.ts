@@ -6,12 +6,12 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {Subject, takeUntil} from 'rxjs';
-import {StockDetailResponse} from '../../interfaces/stock';
-import {StockService} from '../../services/stock.service';
-import {ActivatedRoute} from '@angular/router';
-import {ApexOptions} from "ng-apexcharts";
-import {DateTime} from 'luxon';
+import { Subject, takeUntil } from 'rxjs';
+import { StockDetailResponse } from '../../interfaces/stock';
+import { StockService } from '../../services/stock.service';
+import { ActivatedRoute } from '@angular/router';
+import { ApexOptions } from "ng-apexcharts";
+import { DateTime } from 'luxon';
 
 const now = DateTime.now();
 @Component({
@@ -26,7 +26,7 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
   stockDetail: StockDetailResponse | undefined;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
   // @ts-ignore
-  chartVisitors: ApexOptions;
+  chartStock: ApexOptions;
   data: any;
 
   constructor(
@@ -43,8 +43,6 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: StockDetailResponse) => {
           this.stockDetail = { ...res };
-          // Prepare Series data
-          this._prepareSeriesData();
           // Prepare the chart data
           this._prepareChartData();
           this._changeDetectorRef.markForCheck();
@@ -57,127 +55,104 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  private _prepareSeriesData(): void {
-    this.data = {
-      "s1": [
-        {
-          name: "StockPrices",
-          data: [
-            {
-              x: now.minus({months: 12}).plus({day: 1}).toJSDate(),
-              y: 4884
-            },
-            {
-              x: now.minus({months: 12}).plus({day: 4}).toJSDate(),
-              y: 5351
-            },
-            {
-              x: now.minus({months: 12}).plus({day: 7}).toJSDate(),
-              y: 5293
-            },
-          ]
-        }
-      ]
-    };
-  }
 
-  private _prepareChartData(): void
-  {
-    // Visitors
-    this.chartVisitors = {
-      chart     : {
+  private _prepareChartData(): void {
+    let seriesData = this.stockDetail?.prices
+    // Stock
+    this.chartStock = {
+      chart: {
         animations: {
-          speed           : 400,
+          speed: 400,
           animateGradually: {
             enabled: false
           }
         },
         fontFamily: 'inherit',
-        foreColor : 'inherit',
-        width     : '100%',
-        height    : '100%',
-        type      : 'area',
-        toolbar   : {
+        foreColor: 'inherit',
+        width: '100%',
+        height: '100%',
+        type: 'area',
+        toolbar: {
           show: false
         },
-        zoom      : {
+        zoom: {
           enabled: false
         }
       },
-      colors    : ['#818CF8'],
+      colors: ['#818CF8'],
       dataLabels: {
         enabled: false
       },
-      fill      : {
+      fill: {
         colors: ['#312E81']
       },
-      grid      : {
-        show       : true,
+      grid: {
+        show: true,
         borderColor: '#334155',
-        padding    : {
-          top   : 10,
+        padding: {
+          top: 10,
           bottom: -40,
-          left  : 0,
-          right : 0
+          left: 0,
+          right: 0
         },
-        position   : 'back',
-        xaxis      : {
+        position: 'back',
+        xaxis: {
           lines: {
             show: true
           }
         }
       },
-      series    : this.data.stockprice.series,
-      stroke    : {
+      //series: this.data.stockprice.series,
+      stroke: {
         width: 2
       },
-      tooltip   : {
+      tooltip: {
         followCursor: true,
-        theme       : 'dark',
-        x           : {
+        theme: 'dark',
+        x: {
           format: 'MMM dd, yyyy'
         },
-        y           : {
+        y: {
           formatter: (value: number): string => `${value}`
         }
       },
-      xaxis     : {
+      xaxis: {
         axisBorder: {
           show: false
         },
-        axisTicks : {
+        axisTicks: {
           show: false
         },
         crosshairs: {
           stroke: {
-            color    : '#475569',
+            color: '#475569',
             dashArray: 0,
-            width    : 2
+            width: 2
           }
         },
-        labels    : {
+        labels: {
           offsetY: -20,
-          style  : {
+          style: {
             colors: '#CBD5E1'
           }
         },
         tickAmount: 20,
-        tooltip   : {
+        tooltip: {
           enabled: false
         },
-        type      : 'datetime'
+        type: 'datetime'
       },
-      yaxis     : {
-        axisTicks : {
+      yaxis: {
+        axisTicks: {
           show: false
         },
         axisBorder: {
           show: false
         },
-        min       : (min): number => min - 750,
-        max       : (max): number => max + 250,
+        min: (min): number => min - 750,
+        max: (max): number => max + 250,
         tickAmount: 5,
-        show      : false
+        show: false
       }
     };
   }
