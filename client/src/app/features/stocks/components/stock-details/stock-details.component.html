@@ -68,19 +68,19 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col flex-auto h-80">
+      <div class="flex flex-col flex-auto h-100">
         <apx-chart
           class="flex-auto w-full h-full"
-          [chart]="chartStock?.chart"
-          [colors]="chartStock?.colors"
-          [dataLabels]="chartStock?.dataLabels"
-          [fill]="chartStock?.fill"
-          [grid]="chartStock?.grid"
-          [series]="chartStock?.series[0]"
-          [stroke]="chartStock?.stroke"
-          [tooltip]="chartStock?.tooltip"
-          [xaxis]="chartStock?.xaxis"
-          [yaxis]="chartStock?.yaxis">
+          [chart]="chartStock.chart"
+          [colors]="chartStock.colors"
+          [dataLabels]="chartStock.dataLabels"
+          [fill]="chartStock.fill"
+          [grid]="chartStock.grid"
+          [series]="chartStock?.series[visitorsYearSelector.value]"
+          [stroke]="chartStock.stroke"
+          [tooltip]="chartStock.tooltip"
+          [xaxis]="chartStock.xaxis"
+          [yaxis]="chartStock.yaxis">
         </apx-chart>
       </div>
     </div>

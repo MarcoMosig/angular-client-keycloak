@@ -44,7 +44,7 @@ export class AuthService {
       if (event instanceof OAuthErrorEvent) {
         console.error('OAuthErrorEvent Object:', event);
       } else {
-        console.warn('OAuthEvent Object:', event);
+        // console.warn('OAuthEvent Object:', event);
       }
     });
 

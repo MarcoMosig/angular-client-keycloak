@@ -6,14 +6,13 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { StockDetailResponse } from '../../interfaces/stock';
-import { StockService } from '../../services/stock.service';
-import { ActivatedRoute } from '@angular/router';
-import { ApexOptions } from "ng-apexcharts";
-import { DateTime } from 'luxon';
+import {Subject, takeUntil} from 'rxjs';
+import {StockDetailResponse, StockPrice} from '../../interfaces/stock';
+import {StockService} from '../../services/stock.service';
+import {ActivatedRoute} from '@angular/router';
+import {ApexOptions} from "ng-apexcharts";
+import {DateTime} from 'luxon';
 
-const now = DateTime.now();
 @Component({
   selector: 'app-stock-details',
   templateUrl: './stock-details.component.html',
@@ -42,22 +41,46 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(
         (res: StockDetailResponse) => {
-          this.stockDetail = { ...res };
+          this.stockDetail = {...res};
+          this._prepareChartSeries();
           // Prepare the chart data
           this._prepareChartData();
           this._changeDetectorRef.markForCheck();
         }
       )
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
 
+  private _prepareChartSeries() {
+    // Get StockPrices at 90 days
+    const sortedStocks = this.stockDetail?.prices
+      .sort((a, b) => DateTime.fromISO(b.date).toUnixInteger() - DateTime.fromISO(a.date).toUnixInteger())
+      .slice(0, 90);
+    this.data = {
+      stockpriceData: {
+        series: {
+          'this-year' : [
+            {
+              name: "90Days",
+              data: sortedStocks?.map((price: StockPrice) => {
+                return {
+                  x: price.date, y: price.close
+                }
+              })
+            }
+          ]
+        }
+      }
+    }
+  }
+
 
   private _prepareChartData(): void {
-    let seriesData = this.stockDetail?.prices
     // Stock
     this.chartStock = {
       chart: {
@@ -102,7 +125,7 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
           }
         }
       },
-      //series: this.data.stockprice.series,
+      series: this.data.stockpriceData.series,
       stroke: {
         width: 2
       },
