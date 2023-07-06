@@ -7031,16 +7031,6 @@ const stockprices = [
     },
     {
       "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
-      "date": "2023-04-11",
-      "open": null,
-      "high": null,
-      "low": null,
-      "close": null,
-      "adj_close": null,
-      "volume": null
-    },
-    {
-      "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
       "date": "2023-04-12",
       "open": 92.190002,
       "high": 92.849998,
@@ -7321,16 +7311,6 @@ const stockprices = [
     },
     {
       "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
-      "date": "2023-05-23",
-      "open": null,
-      "high": null,
-      "low": null,
-      "close": null,
-      "adj_close": null,
-      "volume": null
-    },
-    {
-      "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
       "date": "2023-05-24",
       "open": 83.589996,
       "high": 83.589996,
@@ -7391,16 +7371,6 @@ const stockprices = [
     },
     {
       "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
-      "date": "2023-06-01",
-      "open": null,
-      "high": null,
-      "low": null,
-      "close": null,
-      "adj_close": null,
-      "volume": null
-    },
-    {
-      "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
       "date": "2023-06-02",
       "open": 82.889999,
       "high": 84.550003,
@@ -7458,16 +7428,6 @@ const stockprices = [
       "close": 85.510002,
       "adj_close": 85.510002,
       "volume": 7438
-    },
-    {
-      "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",
-      "date": "2023-06-12",
-      "open": null,
-      "high": null,
-      "low": null,
-      "close": null,
-      "adj_close": null,
-      "volume": null
     },
     {
       "id": "8ea80fe6-eeb7-4d59-bfc1-da5b6f15a3ff",

@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'app/core/services/auth.service';
 import { Navigation } from "app/core/navigation/navigation.types";
 import { FinvestNavigationService } from "@finvest/components/navigation";
@@ -15,6 +15,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
   isScreenSmall: boolean = false;
   navigation?: Navigation;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
+  isAuthenticated$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -22,6 +23,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _navigationService: NavigationService,
     private _finvestNavigationService: FinvestNavigationService,) {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
 
   ngOnInit() {
@@ -49,12 +51,6 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
   }
 
   toggleNavigation(name: string): void {
-    // Get the navigation
-    //const navigation = this._finvestNavigationService.getComponent<FinvestVerticalNavigationComponent>(name);
 
-    // if (navigation) {
-    //   // Toggle the opened status
-    //   navigation.toggle();
-    // }
   }
 }

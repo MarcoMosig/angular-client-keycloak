@@ -7,10 +7,10 @@
       <!-- Logo -->
       <div class="flex items-center mx-2 lg:mr-8">
         <div class="hidden lg:flex">
-          <img class="dark:hidden w-24" ngSrc="assets/images/logo/logo-text.svg" height="32" width="96">
-          <img class="hidden dark:flex w-24" ngSrc="assets/images/logo/logo-text-on-dark.svg" height="32" width="96">
+          <img class="dark:hidden w-16" ngSrc="assets/images/logo/reshot-icon-investment-strategy.svg" height="32" width="96">
+          <img class="hidden dark:flex w-16" ngSrc="assets/images/logo/reshot-icon-investment-strategy.svg" height="32" width="96">
         </div>
-        <img class="flex lg:hidden w-8" ngSrc="assets/images/logo/logo.svg" height="32" width="32">
+        <img class="flex lg:hidden w-8" ngSrc="assets/images/logo/reshot-icon-investment-strategy.svg" height="32" width="32">
       </div>
       <!-- Horizontal navigation -->
       <fuse-horizontal-navigation class="mr-2" [name]="'mainNavigation'"
@@ -23,9 +23,9 @@
     </ng-container>
     <!-- Components -->
     <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
-      <!--      <user></user>-->
       <ng-container>
-        <button (click)="login()">Sign in</button>
+        <button *ngIf="(isAuthenticated$ | async) == false" (click)="login()">Sign in</button>
+        <button *ngIf="(isAuthenticated$ | async)" (click)="logout()">Sign out</button>
       </ng-container>
     </div>
   </div>

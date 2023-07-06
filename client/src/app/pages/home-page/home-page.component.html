@@ -9,50 +9,103 @@
         <!-- OAuth2 Details -->
         <div class="flex-auto -mt-px pt-4 sm:pt-6">
             <div class="w-full max-w-screen-xl mx-auto">
-                <!-- IsAuthenticated -->
-                <div class="flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="font-medium leading-5"><strong>IsAuthenticated</strong></div>
-                    <div class="leading-5 text-secondary">{{isAuthenticated$ | async}}</div>
+                <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0">
+                    <div class="sm:col-span-2 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <!-- IsAuthenticated -->
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate">
+                                    <strong>IsAuthenticated</strong>
+                                </div>
+                                <div class="leading-5 text-secondary">{{isAuthenticated$ | async}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- HasValidToken -->
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate">
+                                    <strong>HasValidToken</strong>
+                                </div>
+                                <div class="leading-5 text-secondary">{{hasValidToken}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- IsDoneLoading -->
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate">
+                                    <strong>IsDoneLoading</strong>
+                                </div>
+                                <div class="leading-5 text-secondary">{{isDoneLoading$ | async}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CanActivateProtectedRoutes -->
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate">
+                                    <strong>CanActivateProtectedRoutes</strong>
+                                </div>
+                                <div class="leading-5 text-secondary">{{canActivateProtectedRoutes$ | async}}</div>
+                            </div>
+                        </div>
+                    </div>                     
                 </div>
-                <!-- HasValidToken -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="font-medium leading-5"><strong>HasValidToken</strong></div>
-                    <div class="leading-5 text-secondary">{{hasValidToken}}</div>
-                </div> -->
-                <!-- IsDoneLoading -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="font-medium leading-5"><strong>IsDoneLoading</strong></div>
-                    <div class="leading-5 text-secondary">{{isDoneLoading$ | async}}</div>
-                </div> -->
-                <!-- CanActivateProtectedRoutes -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="font-medium leading-5"><strong>CanActivateProtectedRoutes</strong></div>
-                    <div class="leading-5 text-secondary">{{canActivateProtectedRoutes$ | async}}</div>
-                </div> -->
-                <!-- IdentityClaims -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="font-medium leading-5 overflow-visible"><strong>IdentityClaims</strong></div>
-                    <div class="leading-5 text-secondary overflow-visible">{{identityClaims | json}}</div>
-                </div> -->
-                <!-- RefreshToken -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b">
-                    <div class="font-medium leading-5"><strong>RefreshToken</strong></div>
-                    <div class="leading-5 text-secondary break-words">{{refreshToken}}</div>
-                </div> -->
-                <!-- AccessToken -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b overflow-x-auto">
-                    <div class="ml-4">
-                        <div class="font-medium leading-5"><strong>AccessToken</strong></div>
-                        <div class="leading-5 text-secondary">{{accessToken}}</div>
+            </div>
+        </div>
+
+        <div class="flex-auto -mt-px pt-4 sm:pt-6">
+            <div class="w-full max-w-screen-xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-1 gap-6 w-full min-w-0">
+                    <!-- IdentityClaims -->                    
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6">
+                                    <strong>IdentityClaims</strong>
+                                </div>
+                                <div class="ml-2 leading-5 text-secondary overflow-auto">{{identityClaims | json}}</div>
+                            </div>
+                        </div>
                     </div>
-                </div> -->
+                    <!-- RefreshToken -->
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6">
+                                    <strong>RefreshToken</strong>
+                                </div>
+                                <div class="ml-5 leading-5 text-secondary overflow-auto">{{refreshToken}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- AccessToken -->
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6">
+                                    <strong>AccessToken</strong>
+                                </div>
+                                <div class="ml-5 leading-5 text-secondary overflow-auto">{{accessToken}}</div>
+                            </div>
+                        </div>
+                    </div>
                 <!-- IdToken -->
-                <!-- <div class="z-20 flex items-center px-6 py-4 md:px-8 border-b overflow-x-auto">
-                    <div class="ml-4">
-                        <div class="font-medium leading-5"><strong>IdToken</strong></div>
-                        <div class="leading-5 text-secondary">{{idToken}}</div>
-                    </div>
-                </div> -->
+                    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+                        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6">
+                                    <strong>IdToken</strong>
+                                </div>
+                                <div class="ml-10 leading-5 text-secondary overflow-auto">{{idToken}}</div>
+                            </div>
+                        </div>
+                    </div>                     
+                </div>
             </div>
         </div>
     </div>

@@ -6,12 +6,12 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {Subject, takeUntil} from 'rxjs';
-import {StockDetailResponse, StockPrice} from '../../interfaces/stock';
-import {StockService} from '../../services/stock.service';
-import {ActivatedRoute} from '@angular/router';
-import {ApexOptions} from "ng-apexcharts";
-import {DateTime} from 'luxon';
+import { Subject, takeUntil } from 'rxjs';
+import { StockDetailResponse, StockPrice } from '../../interfaces/stock';
+import { StockService } from '../../services/stock.service';
+import { ActivatedRoute } from '@angular/router';
+import { ApexOptions } from "ng-apexcharts";
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-stock-details',
@@ -41,7 +41,7 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(
         (res: StockDetailResponse) => {
-          this.stockDetail = {...res};
+          this.stockDetail = { ...res };
           this._prepareChartSeries();
           // Prepare the chart data
           this._prepareChartData();
@@ -64,7 +64,7 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
     this.data = {
       stockpriceData: {
         series: {
-          'this-year' : [
+          'this-year': [
             {
               name: "90Days",
               data: sortedStocks?.map((price: StockPrice) => {
@@ -172,7 +172,7 @@ export class StockDetailsComponent implements OnInit, OnDestroy {
         axisBorder: {
           show: false
         },
-        min: (min): number => min - 750,
+        min: (min): number => min - 250,
         max: (max): number => max + 250,
         tickAmount: 5,
         show: false
