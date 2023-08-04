@@ -1,0 +1,33 @@
+# Statische Traefik-Konfigurationsdatei
+# https://doc.traefik.io/traefik/getting-started/configuration-overview/#the-static-configuration
+# https://doc.traefik.io/traefik/reference/static-configuration/cli/
+
+api:
+  dashboard: true                             # Aktivieren des Dashboard
+  insecure: true
+
+# Error-Log
+log:
+  level: Debug
+  filePath: "/logs/traefik.log"
+  format: json
+
+# Access Log
+accessLog:
+  filePath: "/logs/access.log"
+  format: json
+  bufferingSize: 100
+  filters:
+    minDuration: "10ms"
+    statusCodes:
+      - "200"
+      - "300-302"
+
+entryPoints:
+  http:
+    address: ":80"                            # Erstellen des Einstiegspunkt für HTTP (Port 80)
+
+providers:
+  docker:
+    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
+  providersThrottleDuration: "10"             # Frequenz in welchen Abständen die Konfiguration nachgeladen wird

@@ -1,32 +1,49 @@
 services:
-  keycloak:
-    image: quay.io/keycloak/keycloak:21.1
-    container_name: keycloak
-    ports:
-      - "8080:8080"
-    environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-    command: start-dev
-
-  krakend:
-    image: devopsfaith/krakend:watch
-    container_name: gateway
-    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
-    ports:
-      - "8081:8080"
-    expose:
-      - 8081
+  traefik:
+    image: traefik:v2.10.4
+    container_name: traefik
+    restart: unless-stopped
     volumes:
-      - ./config/krakend:/etc/krakend
+      # Traefik mit der Zeit vom Server syncronisieren
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /var/log/traefik/:/logs/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik.entrypoints=http"
 
-  microservice1:
-    build: ./microservice1
-    container_name: microservice1
-    ports:
-      - 3000:3000
-  microservice2:
-    build: ./microservice2
-    container_name: microservice2
-    ports:
-      - 3001:3001
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:21.1
+#    container_name: keycloak
+#    environment:
+#      - KEYCLOAK_ADMIN=admin
+#      - KEYCLOAK_ADMIN_PASSWORD=admin
+#    command: start-dev
+
+#  krakend:
+#    image: devopsfaith/krakend:watch
+#    container_name: gateway
+#    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
+#    volumes:
+#      - ./config/krakend:/etc/krakend
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.gateway.rule=PathPrefix(`/api/`)"
+#      - "traefik.http.routers.gateway.service=gateway"
+#      - "traefik.http.services.gateway.loadbalancer.server.port=5000"
+#      - "traefik.http.middlewares.gateway.stripprefix.prefixes=/api"
+#      - "traefik.http.middlewares.gateway.stripprefix.forceSlash=false"
+#      - "traefik.http.routers.gateway.middlewares=gateway"
+
+#  microservice1:
+#    build: ./microservice1
+#    container_name: microservice1
+#    ports:
+#      - 3000:3000
+#  microservice2:
+#    build: ./microservice2
+#    container_name: microservice2
+#    ports:
+#      - 3001:3001
