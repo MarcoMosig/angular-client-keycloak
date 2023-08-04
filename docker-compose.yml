@@ -3,6 +3,8 @@ services:
     image: traefik:v2.10.4
     container_name: traefik
     restart: unless-stopped
+    ports:
+      - "8080:8080"
     volumes:
       # Traefik mit der Zeit vom Server syncronisieren
       - /etc/localtime:/etc/localtime:ro
@@ -11,16 +13,21 @@ services:
       - /var/log/traefik/:/logs/
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.traefik.entrypoints=http"
 
-#  keycloak:
-#    image: quay.io/keycloak/keycloak:21.1
-#    container_name: keycloak
-#    environment:
-#      - KEYCLOAK_ADMIN=admin
-#      - KEYCLOAK_ADMIN_PASSWORD=admin
-#    command: start-dev
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: start-dev
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.rule=PathPrefix(`/keycloak/`)"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-For=keycloak"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Proto=http"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Port=8080"
 
 #  krakend:
 #    image: devopsfaith/krakend:watch
