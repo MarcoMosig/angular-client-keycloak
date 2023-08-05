@@ -5,9 +5,9 @@
   "timeout": "3000ms",
   "cache_ttl": "300s",
   "output_encoding": "json",
-  "port": 8080,
+  "port": 9901,
   "host": [
-    "http://localhost:8081"
+
   ],
   "extra_config": {
     "security/cors": {
@@ -37,13 +37,6 @@
     {
       "endpoint": "/v1/stocks/list",
       "method": "GET",
-      "extra_config": {
-        "auth/validator": {
-          "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/realms/myrealm/protocol/openid-connect/certs",
-          "disable_jwk_security": true
-        }
-      },
       "backend": [
         {
           "url_pattern": "/v1/stocks",

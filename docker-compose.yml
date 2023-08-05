@@ -4,6 +4,7 @@ services:
     container_name: traefik
     restart: unless-stopped
     ports:
+      - "80:80"
       - "8080:8080"
     volumes:
       # Traefik mit der Zeit vom Server syncronisieren
@@ -15,42 +16,55 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
 
+  krakend:
+    image: devopsfaith/krakend:watch
+    container_name: gateway
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
+    volumes:
+      - ./config/krakend:/etc/krakend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gateway.rule=PathPrefix(`/api/`)"
+      - "traefik.http.routers.gateway.service=gateway"
+      - "traefik.http.services.gateway.loadbalancer.server.port=9901"
+      - "traefik.http.middlewares.gateway.stripprefix.prefixes=/api"
+      - "traefik.http.middlewares.gateway.stripprefix.forceSlash=false"
+      - "traefik.http.routers.gateway.middlewares=gateway"
+  whoami:
+    image: traefik/whoami
+    container_name: whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=PathPrefix(`/whoami`)"
+      - "traefik.http.routers.whoami.entrypoints=http"
+
   keycloak:
     image: quay.io/keycloak/keycloak:21.1
     container_name: keycloak
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_PROXY_ADDRESS_FORWARDING=true
+      - KC_HOSTNAME_STRICT=false
     command: start-dev
+    ports:
+      - "8082:8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.keycloak.rule=PathPrefix(`/keycloak/`)"
-      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-For=keycloak"
+      - "traefik.http.routers.keycloak.rule=PathPrefix(`/keycloak`)"
+      - "traefik.http.routers.keycloak.entrypoints=http"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-For=localhost"
       - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Proto=http"
-      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Port=8080"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Port=8082"
 
-#  krakend:
-#    image: devopsfaith/krakend:watch
-#    container_name: gateway
-#    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
-#    volumes:
-#      - ./config/krakend:/etc/krakend
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.gateway.rule=PathPrefix(`/api/`)"
-#      - "traefik.http.routers.gateway.service=gateway"
-#      - "traefik.http.services.gateway.loadbalancer.server.port=5000"
-#      - "traefik.http.middlewares.gateway.stripprefix.prefixes=/api"
-#      - "traefik.http.middlewares.gateway.stripprefix.forceSlash=false"
-#      - "traefik.http.routers.gateway.middlewares=gateway"
+  microservice1:
+    build: ./microservice1
+    container_name: microservice1
+    ports:
+      - 3000:3000
+  microservice2:
+    build: ./microservice2
+    container_name: microservice2
+    ports:
+      - 3001:3001
 
-#  microservice1:
-#    build: ./microservice1
-#    container_name: microservice1
-#    ports:
-#      - 3000:3000
-#  microservice2:
-#    build: ./microservice2
-#    container_name: microservice2
-#    ports:
-#      - 3001:3001

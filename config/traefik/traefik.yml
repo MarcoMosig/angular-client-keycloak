@@ -8,7 +8,7 @@ api:
 
 # Error-Log
 log:
-  level: Debug
+  level: Info
   filePath: "/logs/traefik.log"
   format: json
 
