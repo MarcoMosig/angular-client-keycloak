@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       # Traefik mit der Zeit vom Server syncronisieren
       - /etc/localtime:/etc/localtime:ro
@@ -14,7 +14,17 @@ services:
       - /var/log/traefik/:/logs/
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8081"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,DELETE,POST"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolalloworigin=*"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
+    
+    networks:
+      - proxy
 
   krakend:
     image: devopsfaith/krakend:watch
@@ -30,13 +40,8 @@ services:
       - "traefik.http.middlewares.gateway.stripprefix.prefixes=/api"
       - "traefik.http.middlewares.gateway.stripprefix.forceSlash=false"
       - "traefik.http.routers.gateway.middlewares=gateway"
-  whoami:
-    image: traefik/whoami
-    container_name: whoami
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=PathPrefix(`/whoami`)"
-      - "traefik.http.routers.whoami.entrypoints=http"
+    networks:
+      - proxy
 
   keycloak:
     image: quay.io/keycloak/keycloak:21.1
@@ -48,14 +53,16 @@ services:
       - KC_HOSTNAME_STRICT=false
     command: start-dev
     ports:
-      - "8082:8080"
+      - "8080:8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.keycloak.rule=PathPrefix(`/keycloak`)"
-      - "traefik.http.routers.keycloak.entrypoints=http"
-      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-For=localhost"
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak.localhost`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-For=keycloak.localhost"
       - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Proto=http"
-      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Port=8082"
+      - "traefik.http.middlewares.keycloak-header.headers.customrequestheaders.X-Forwarded-Port=8080"
+    networks:
+      - proxy
 
   microservice1:
     build: ./microservice1
@@ -68,3 +75,9 @@ services:
     ports:
       - 3001:3001
 
+networks:
+  proxy:
+    name: proxy
+    external: true
+    driver: bridge
+    attachable: true
