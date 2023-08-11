@@ -1,7 +1,7 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
-    issuer: 'http://localhost:8080/realms/myrealm',
+    issuer: 'http://localhost:8080/realms/finvest',
     clientId: 'angularspaclient', // The "Auth Code + PKCE" client
     responseType: 'code',
     redirectUri: window.location.origin + '/',
